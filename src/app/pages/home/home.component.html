@@ -1,0 +1,83 @@
+<div class="home-page">
+  <!-- Header -->
+  <header class="header">
+    <a routerLink="/home" class="brand">
+      <img src="assets/images/logo2.png" alt="Finance Logo" class="logo" />
+      <span class="logo-text">FinanceTracker.</span>
+    </a>
+    <nav>
+      <a routerLink="/home">Bosh sahifa</a>
+      <a routerLink="/login">Kirish</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-text">
+      <h1>Moliyaviy holatingizni boshqaring va rivojlantiring</h1>
+      <p>FinanceTracker yordamida daromad va xarajatlaringizni kuzating, byudjet tuzing va moliyaviy maqsadlaringizga erishing.</p>
+      <button pButton label="Tizimga kirish" icon="pi pi-sign-in" class="btn-primary" [routerLink]="['/login']"></button>
+    </div>
+    <div class="hero-image">
+      <img src="assets/images/dashboard-preview.png" alt="Finance Dashboard Preview" />
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <h2>FinanceTracker bilan nimalarga erishishingiz mumkin?</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <i class="pi pi-wallet feature-icon"></i>
+        <h3>Daromad va xarajatlarni boshqarish</h3>
+        <p>Har bir tranzaksiyani qulay va tez qo‘shing, tahlil qiling.</p>
+      </div>
+      <div class="feature-card">
+        <i class="pi pi-chart-line feature-icon"></i>
+        <h3>Hisobotlar va diagrammalar</h3>
+        <p>Moliyaviy holatingizni aniq ko‘rish uchun grafikalar va hisobotlar oling.</p>
+      </div>
+      <div class="feature-card">
+        <i class="pi pi-tags feature-icon"></i>
+        <h3>Kategoriyalar va byudjetlar</h3>
+        <p>Moliyaviy oqimlaringizni toifalarga ajrating va byudjetlar yarating.</p>
+      </div>
+      <div class="feature-card">
+        <i class="pi pi-sync feature-icon"></i>
+        <h3>Takrorlanuvchi tranzaksiyalar</h3>
+        <p>Avtomatik to‘lov va kirimlarni sozlash orqali vaqtni tejang.</p>
+      </div>
+      <div class="feature-card">
+        <i class="pi pi-file-excel feature-icon"></i>
+        <h3>Hisobotlarni eksport qilish</h3>
+        <p>Ma’lumotlarni CSV formatida eksport qilib, boshqa dasturlarda ishlating.</p>
+      </div>
+      <div class="feature-card">
+        <i class="pi pi-bell feature-icon"></i>
+        <h3>Bildirishnomalar</h3>
+        <p>Muqarrar tranzaksiyalar va byudjet chegaralari haqida avtomatik ogohlantirishlar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="about-me">
+        <h3>Men haqimda</h3>
+        <p>Ulug'bek, dasturchi, moliyaviy ilovalar va dasturlash ixlosmandi. Sizning moliyaviy boshqaruvingiz uchun samarali vositalar yarataman.</p>
+      </div>
+      <div class="contact">
+        <h3>Bog'lanish</h3>
+        <ul>
+          <li><a href="mailto:julugbek023@gmail.com">Email</a></li>
+          <li><a href="https://github.com/Ulugbek1904/" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/ulug%CA%BBbek-jumaboyev-8b1021338/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <p>&copy; 2025 FinanceTracker. Barcha huquqlar himoyalangan.</p>
+  </footer>
+</div>
+
+<router-outlet></router-outlet>
