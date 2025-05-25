@@ -11,6 +11,6 @@ export class NotFoundComponent {
 
   router = inject(Router);
   goHome() {
-    this.router.navigateByUrl('/');  
+    this.router.navigateByUrl('home');  
   }
 }

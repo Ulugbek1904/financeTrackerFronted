@@ -1,0 +1,105 @@
+.transaction-container {
+    padding: 20px 0 0 20px;
+}
+
+.transaction-filter {
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.search-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.filter {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.filter .filter-search {
+    width: 40%;
+    position: relative;
+    display: inline-block;
+}
+.filter-search .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    color: #aaa;
+}
+.filter-search input {
+    padding: 10px 50px 10px 50px;
+    border: 1px solid #ccc;
+    border-radius: 100px;
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0);
+    color: white;
+}
+
+.filter .filter-time {
+    border: 1px solid #2c3e50;
+    align-items: center;
+    border-radius: 100px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .04);
+    display: flex;
+    height: 38px;
+    justify-content: center;
+    margin-top: 2.5px;
+    margin-right: 10px;
+    margin-left: 10px;
+    min-width: 110px;
+    position: relative;
+    width: 9%;
+}
+
+.filter .filter-modal {
+    border: 1px solid #2c3e50;
+    align-items: center;
+    border-radius: 100px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .04);
+    display: flex;
+    height: 38px;
+    justify-content: center;
+    margin-top: 2.5px;
+    margin-right: 10px;
+    margin-left: 10px;
+    min-width: 110px;
+    position: relative;
+    width: 9%;
+}
+.import-button {
+    border: 1px solid #74c7b7;
+    align-items: center;
+    border-radius: 100px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .04);
+    display: flex;
+    height: 38px;
+    justify-content: center;
+    margin-top: 2.5px;
+    margin-right: 10px;
+    margin-left: 10px;
+    min-width: 110px;
+    position: relative;
+    width: 9%;
+}
+.import-button:hover {
+    background-color: #74c7b7;
+    color: white;
+}
+.import-button button {
+    background: rgba(255, 255, 255, 0);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+.export {
+    margin-right: 0;
+    margin-left: 0;
+} 

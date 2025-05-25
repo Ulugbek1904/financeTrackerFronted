@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,9 +11,11 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  submitted = false;
+  router = inject(Router)
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -21,15 +24,21 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  get f() { return this.loginForm.controls; }
 
   onSubmit(): void {
-    this.submitted = true;
+  if (this.loginForm.invalid) return;
 
-    if (this.loginForm.invalid) {
-      return;
+  this.authService.login(this.loginForm.value).subscribe({
+    next: (res: any) => {
+      localStorage.setItem("accessToken", res.accessToken);
+      localStorage.setItem("refreshToken", res.refreshToken);
+      localStorage.setItem("expiryDate", res.expiryDate || new Date(Date.now() + 15 * 60 * 1000).toISOString());
+      this.router.navigateByUrl("dashboard");
+    },
+    error: () => {
+      alert("Wrong credentials");
     }
+  });
+}
 
-    console.log('Login data:', this.loginForm.value);
-  }
 }

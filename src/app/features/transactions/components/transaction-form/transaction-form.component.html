@@ -1,0 +1,79 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="transaction-form">
+  <div class="form-row">
+    <label for="description">Tavsif</label>
+    <input 
+      type="text" 
+      id="description" 
+      formControlName="description"
+      placeholder="Transaksiya tavsifi"
+    >
+  </div>
+
+  <div class="form-row">
+    <label for="amount">Miqdor</label>
+    <input
+      type="number"
+      id="amount"
+      formControlName="amount"
+      step="0.01"
+      min="0.01"
+    >
+  </div>
+
+  <div class="form-row">
+    <label for="transactionDate">Sana</label>
+    <input
+      type="datetime-local"
+      id="transactionDate"
+      formControlName="transactionDate"
+    >
+  </div>
+
+  <div class="form-row">
+    <label for="categoryId">Kategoriya</label>
+    <select 
+      id="categoryId" 
+      formControlName="categoryId"
+      class="custom-select"
+    >
+      <option [value]="null">Kategoriyani tanlang</option>
+      <option 
+        *ngFor="let cat of filteredCategories" 
+        [value]="cat.id"
+      >
+        {{ cat.name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-row">
+    <label for="accountId">Hisob</label>
+    <select 
+      id="accountId" 
+      formControlName="accountId"
+      class="custom-select"
+    >
+      <option [value]="null">Hisobni tanlang</option>
+      <option 
+        *ngFor="let acc of accounts" 
+        [value]="acc.id"
+      >
+        {{ acc.name }}
+      </option>
+    </select>
+  </div>
+
+  <button 
+    type="submit" 
+    class="submit-btn"
+    [disabled]="form.invalid"
+  >
+    Saqlash
+  </button>
+  <button 
+    type="button" 
+    class="cancel-btn"
+    (click)="onCancel()">
+      tozalash
+    </button>
+</form>

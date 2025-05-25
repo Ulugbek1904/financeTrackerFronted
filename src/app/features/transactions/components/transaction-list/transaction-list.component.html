@@ -1,0 +1,78 @@
+<!-- Transaction Table -->
+<p-table [value]="transactions"
+         [(selection)]="selectedTransactions"
+         dataKey="id"
+         [lazy]="true"
+         (onLazyLoad)="loadTransactions($event)"
+         [paginator]="true"
+         [rows]="10"
+         [totalRecords]="totalRecords"
+         sortMode="single">
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width:3em"><p-tableHeaderCheckbox /></th>
+      <th pSortableColumn="date">Date      <p-sortIcon field="date"></p-sortIcon></th>
+      <th pSortableColumn="amount">Amount   <p-sortIcon field="amount"></p-sortIcon></th>
+      <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
+      <th pSortableColumn="account">Account  <p-sortIcon field="account"></p-sortIcon></th>
+      <th pSortableColumn="isIncome">Income <p-sortIcon field="isIncome"></p-sortIcon></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-t>
+    <tr [pSelectableRow]="t">
+      <td><p-tableCheckbox [value]="t"></p-tableCheckbox></td>
+      <td>{{ t.date | date:'shortDate' }}</td>
+      <td>{{ t.amount | currency }}</td>
+      <td>{{ t.category }}</td>
+      <td>{{ t.account }}</td>
+      <td>{{ t.isIncome ? 'Kirim' : 'Chiqim' }}</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<!-- Advanced Filter Dialog -->
+<p-dialog header="Advanced Filters"
+          [(visible)]="displayFilter"
+          [modal]="true"
+          [closable]="false">
+  <form class="p-fluid">
+    <div class="p-field">
+      <label>Kirim/Chiqim</label>
+      <p-select formControlName="isIncome"
+                [options]="[
+                  { label: 'Kirim',  value: true  },
+                  { label: 'Chiqim', value: false }
+                ]"
+                placeholder="Select type">
+      </p-select>
+    </div>
+    <div class="p-field">
+      <label>Category</label>
+      <p-select formControlName="categoryId"
+                [options]="categories"
+                optionLabel="label"
+                placeholder="Select category">
+      </p-select>
+    </div>
+    <div class="p-field">
+      <label>Account</label>
+      <p-select formControlName="accountId"
+                [options]="accounts"
+                optionLabel="label"
+                placeholder="Select account">
+      </p-select>
+    </div>
+    <div class="p-field">
+      <label>Start Date</label>
+      <p-datepicker formControlName="startDate"></p-datepicker>
+    </div>
+    <div class="p-field">
+      <label>End Date</label>
+      <p-datepicker formControlName="endDate"></p-datepicker>
+    </div>
+    <div class="p-dialog-footer">
+      <button pButton type="button" label="Clear" class="p-button-secondary" (click)="clearFilter()"></button>
+      <button pButton type="button" label="Apply" (click)="applyFilter()"></button>
+    </div>
+  </form>
+</p-dialog>

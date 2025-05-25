@@ -22,7 +22,7 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, ne
 
     if (!refreshToken) {
       localStorage.clear();
-      router.navigateByUrl('/login');
+      router.navigateByUrl('/home');
       return throwError(() => new Error('Refresh token mavjud emas'));
     }
 
@@ -31,9 +31,8 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, ne
 
         localStorage.setItem('accessToken', newTokens.accessToken);
         localStorage.setItem('refreshToken', newTokens.refreshToken);
-        localStorage.setItem(
-          'expiryDate',
-          newTokens.expiryDate || new Date(Date.now() + 15 * 60 * 1000).toISOString()
+        localStorage.setItem('expiryDate',
+          newTokens.expiryDate || new Date(Date.now() + 30 * 60 * 1000).toISOString()
         );
 
         const cloned = req.clone({

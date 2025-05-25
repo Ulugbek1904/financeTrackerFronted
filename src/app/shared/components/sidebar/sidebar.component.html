@@ -1,0 +1,18 @@
+<div class="sidebar-container">
+  <div class="top-section">
+    <div class="logo-container">
+      <img src="/assets/images/logo2.png" width="300" height="200" alt="Logo" class="logo" />
+    </div>
+  </div>
+  
+  <div class="navbar">
+    <p-panelMenu [model]="items" styleClass="custom-sidebar-menu"></p-panelMenu>
+  </div>
+  
+  <div class="sidebar-footer">
+    <img [src]="profileImageUrl" alt="Profile" class="profile-image" />
+    <button (click)="logout()" class="logout-button">
+      <i class="pi pi-sign-out"></i> Logout
+    </button>
+  </div>
+</div>
