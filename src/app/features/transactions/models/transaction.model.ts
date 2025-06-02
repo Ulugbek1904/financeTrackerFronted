@@ -27,6 +27,7 @@ export interface TransactionQueryDto {
   pageSize?: number;
   startDate?: Date;
   endDate?: Date;
+  search?: string;
 }
 
 export enum TransactionType {

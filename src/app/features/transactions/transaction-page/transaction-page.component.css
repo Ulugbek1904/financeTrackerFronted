@@ -1,9 +1,9 @@
 .transaction-container {
-    padding: 20px 0 0 20px;
+    padding: 20px 0 10px 20px;
 }
 
 .transaction-filter {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     display: flex;
 }
 
@@ -42,6 +42,15 @@
     color: white;
 }
 
+.clear-button {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6c757d;
+}
+
 .filter .filter-time {
     border: 1px solid #2c3e50;
     align-items: center;
@@ -59,7 +68,7 @@
 }
 
 .filter .filter-modal {
-    border: 1px solid #2c3e50;
+    border: 1px solid #74c7b7;
     align-items: center;
     border-radius: 100px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, .04);
@@ -73,6 +82,16 @@
     position: relative;
     width: 9%;
 }
+.filter .filter-modal ::ng-deep .p-button {
+    width: 100%;
+    height: 100%;
+    border: none;
+    /* border-radius: 100px; */
+    background: transparent;
+    color: white;
+    /* border: 1px solid #74c7b7; */
+}
+
 .import-button {
     border: 1px solid #74c7b7;
     align-items: center;
@@ -103,3 +122,130 @@
     margin-right: 0;
     margin-left: 0;
 } 
+
+.summary-panel {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+
+
+
+/* FILTER DIALOG STYLES */
+.filter-dialog  ::ng-deep .p-dialog {
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  width: 400px;
+  height: auto;
+  max-width: 100%;
+}
+
+.filter-dialog ::ng-deep .p-dialog-header {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white;
+  padding: 20px 24px;
+  border-bottom: none;
+}
+
+.filter-dialog ::ng-deep .p-dialog-content {
+  padding: 24px;
+  background: #f9fafb;
+}
+
+.filter-dialog .p-fluid {
+  display: grid;
+  gap: 20px;
+}
+
+.filter-dialog ::ng-deep .p-field {
+  margin-bottom: 0;
+}
+
+.filter-dialog ::ng-deep p-select {
+  width: 100%;
+  height: 40px;
+  padding: 10 12px;
+  font-size: 0.95rem;
+  color: #1e293b;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.filter-dialog ::ng-deep p-select:hover,
+.filter-dialog .p-datepicker:hover {
+  border-color: #93c5fd;
+}
+
+.filter-dialog ::ng-deep p-select:focus,
+.filter-dialog .p-datepicker:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.filter-dialog ::ng-deep .p-inputtext {
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  color: #1e293b;
+  border-radius: 10px;
+}
+
+.filter-dialog ::ng-deep p-datepicker{
+  border: none;
+  color: #64748b;
+  width: 40%;
+}
+.filter-dialog ::ng-deep p-datepicker .gacha{
+  border: none;
+  color: #64748b;
+  width: 40%;
+}
+
+.filter-dialog .p-dialog-footer {
+  padding: 20px 24px;
+  background: #f9fafb;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter-dialog .p-button {
+  border-radius: 10px;
+  padding: 10px 24px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s;
+  min-width: 100px;
+}
+
+.filter-dialog .p-button-secondary {
+  background: white;
+  color: #3b82f6;
+  border: 1px solid #d1d5db;
+}
+
+.filter-dialog .p-button-secondary:hover {
+  background: #f1f5f9;
+  border-color: #9ca3af;
+}
+
+.filter-dialog .p-button:not(.p-button-secondary) {
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  border: none;
+  box-shadow: 0 4px 6px rgba(79, 70, 229, 0.15);
+}
+
+.filter-dialog .p-button:not(.p-button-secondary):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(79, 70, 229, 0.2);
+}

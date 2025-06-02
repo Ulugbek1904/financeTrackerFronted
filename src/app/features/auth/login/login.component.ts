@@ -35,8 +35,15 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("expiryDate", res.expiryDate || new Date(Date.now() + 15 * 60 * 1000).toISOString());
       this.router.navigateByUrl("dashboard");
     },
-    error: () => {
-      alert("Wrong credentials");
+    error: (error) => {
+      if (error.status === 401) {
+        alert("Invalid email or password");
+      } else if (error.status === 403) {
+        alert("Access denied. Please contact support.");  
+      }
+      else if (error.status === 429) {
+        alert("Too many login attempts. Please try 1 hour later.");
+      }
     }
   });
 }

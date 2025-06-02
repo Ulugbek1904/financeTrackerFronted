@@ -78,13 +78,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     };
 
     this.chartOptions = {
-      responsive: true,
+      responsive: false,
       maintainAspectRatio: false,
       plugins: {
         legend: {
           position: 'top',
           labels: {
-            color: '#333',
+            color: '333',
             font: {
               size: 14
             }
@@ -95,7 +95,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           text: 'Oylik Kirim va Chiqim',
           color: '#111',
           font: {
-            size: 18
+            size: 24
           }
         },
         tooltip: {
@@ -110,7 +110,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
             color: '#444'
           },
           grid: {
-            color: '#eee'
+            color: 'red'
           }
         },
         y: {

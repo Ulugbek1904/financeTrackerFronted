@@ -7,7 +7,12 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, ne
   const http = inject(HttpClient);
   const router = inject(Router);
 
-  if (req.url.includes('/auth/login') || req.url.includes('/auth/refresh-token')) {
+  if (
+    req.url.includes('/auth/login') ||
+    req.url.includes('/auth/refresh-token') ||
+    req.url.includes('password/reset-password') ||
+    req.url.includes('password/forgot-password')
+  ) {
     return next(req);
   }
 

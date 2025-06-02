@@ -17,7 +17,7 @@ export const routes: Routes = [
         canActivate: [reverseAuthGuard]
     },
     {
-        path: 'forgot-password',
+        path: 'forgot-password',    
         canActivate: [reverseAuthGuard],
         loadComponent: () => import('./features/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent),
     },

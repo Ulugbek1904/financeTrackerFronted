@@ -15,7 +15,7 @@ export class TransactionService {
   }
 
   getTransactions(query: TransactionQueryDto): Observable<{
-    data: Transaction[],
+    items: Transaction[],
     totalCount: number,
     pageNumber: number,
     pageSize: number
@@ -30,13 +30,18 @@ export class TransactionService {
     if (query.isDescending != null) params = params.set('isDescending', query.isDescending.toString());
     if (query.pageNumber != null) params = params.set('pageNumber', query.pageNumber.toString());
     if (query.pageSize != null) params = params.set('pageSize', query.pageSize.toString());
+    if (query.search) params = params.set('search', query.search);
 
     return this.http.get<
-      {data: Transaction[], totalCount: number, pageNumber: number, pageSize: number}>
+      {items: Transaction[], totalCount: number, pageNumber: number, pageSize: number}>
         (`${this.apiUrl}/all`, { params });
   }
 
   exportTransactions(): Observable<any> {
     return this.http.get(`${this.apiUrl}/export`, { responseType: 'blob' });
+  }
+
+  deleteTransaction(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/delete/${id}`);
   }
 }

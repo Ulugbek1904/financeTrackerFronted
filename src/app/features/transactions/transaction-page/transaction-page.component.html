@@ -4,14 +4,15 @@
             <div class="filter">
                 <div class="filter-search">
                     <i class="pi pi-search search-icon"></i>
-                    <input type="text" placeholder="Search transactions">
+                    <input type="text" [(ngModel)]="search" 
+                        placeholder="Search transactions" (input)="onSearchChange()">
+                        <button type="button" *ngIf="search" class="clear-button" (click)="clearSearch()">
+                            <i class="pi pi-times"></i>
+                        </button>
                 </div>
-                <div class="filter-time">
-                     <button label="Этот год" icon="pi pi-chevron-down" (onClick)="toggleDropdown()">All Time</button>
-                     <p-select [options]="dropdownItems" [(ngModel)]="selectedItem" *ngIf="showDropdown"></p-select>
-
+                <div class="filter-modal">
+                    <p-button class="modal-button" label="Filters" icon="pi pi-filter" (click)="openFilter()"></p-button>
                 </div>
-                <div class="filter-modal"></div>
             </div>
         </div>
         <div class="import-button">
@@ -26,6 +27,99 @@
         </div>
     </div>
     <div class="transaction-list">
-        <app-transaction-list></app-transaction-list>
+        <p-table [value]="transactions"
+         [(selection)]="selectedTransactions"
+         dataKey="id"
+         [rowTrackBy]="trackByTransactionId"
+         [lazy]="true"
+         (onLazyLoad)="loadTransactions($event)"
+         [loading]="loading"
+         [paginator]="true"
+         [rows]="10"
+         [totalRecords]="totalRecords"
+         sortMode="single"
+         selectionMode="multiple">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3em">
+                        <p-tableCheckbox></p-tableCheckbox>
+                    </th>
+                    <th pSortableColumn="date"> Date <p-sortIcon field="date"></p-sortIcon> </th>
+                    <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon> </th>
+                    <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
+                    <th pSortableColumn="account">Account  <p-sortIcon field="account"></p-sortIcon></th>
+                    <th> Description </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-t >
+                <tr [pSelectableRow]="t">
+                    <td><p-tableCheckbox [value]="t"></p-tableCheckbox></td>
+                    <td>{{ t.transactionDate | date:'shortDate' }}</td>
+                    <td class="amount-cell" [style.color]="t.transactionType === 0 ? '#28a745' : '#dc3545'">
+                      {{ (t.transactionType === 0 ? t.amount : -t.amount) | currency : 'USD' }}
+                    </td>
+                    <td>{{ t.categoryName }}</td>
+                    <td>{{ t.accountName }}</td>
+                    <td>{{ t.description }}</td>
+                </tr>
+            </ng-template>
+
+            <div *ngIf="selectedTransactions.length > 0" class="summary-panel">
+              <p>✅ Belgilangan: {{ selectedTransactions.length }} ta / Umumiy: {{ totalRecords }} ta</p>
+              <p>🔻 Jami chiqim: 
+                {{ getTotalExpense() | currency:'USD' }}
+              </p>
+              <p>🔺 Jami kirim: 
+                {{ getTotalIncome() | currency:'USD' }}
+              </p>
+              <button pButton type="button" label="🗑️ O'chirish" class="p-button-danger" (click)="deleteSelected()"></button>
+            </div>
+
+        </p-table>
     </div>
 </div>
+
+
+<p-dialog header="Advanced Filters"
+          [(visible)]="displayFilter"
+          [modal]="true"
+          [closable]="true" class="filter-dialog">
+  <form [formGroup]="filterForm" class="p-fluid">
+    <div class="p-field">
+      <p-select formControlName="isIncome"
+                [options]="[
+                  { label: 'Kirim',  value: true  },
+                  { label: 'Chiqim', value: false }
+                ]"
+                placeholder="IsIncome">
+      </p-select>
+    </div>
+    <div class="p-field">
+      <p-select formControlName="categoryId"
+                [options]="categories"
+                optionLabel="label"
+                optionValue="value"
+                placeholder="Select category">
+      </p-select>
+    </div>
+    <div class="p-field">
+      <p-select formControlName="accountId"
+                [options]="accounts"
+                optionLabel="label"
+                optionValue="value"
+                placeholder="Select account">
+      </p-select>
+    </div>
+    <div class="p-field">
+      <p-datepicker formControlName="startDate" placeholder="dan"></p-datepicker>
+    </div>
+    <div class="p-field">
+      <p-datepicker formControlName="endDate" class="gacha" placeholder="gacha"></p-datepicker>
+    </div>
+    <div class="p-dialog-footer">
+      <button pButton type="button" label="Clear" class="p-button-secondary" (click)="clearFilter()"></button>
+      <button pButton type="button" label="Apply" (click)="applyFilter()"></button>
+    </div>
+  </form>
+</p-dialog>
