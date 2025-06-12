@@ -10,9 +10,22 @@
   </div>
   
   <div class="sidebar-footer">
-    <img [src]="profileImageUrl" alt="Profile" class="profile-image" />
+    <img [src]="profileImageUrl" alt="Profile" class="profile-image" (click)="openImageModal()" />
     <button (click)="logout()" class="logout-button">
       <i class="pi pi-sign-out"></i> Logout
     </button>
   </div>
 </div>
+
+<p-dialog 
+  [(visible)]="showImageModal"
+  [modal]="true"
+  [resizable]="false"
+  [dismissableMask]="true"
+  [closable]="true"
+  >
+  <div class="modal-content">
+    <img [src]="profileImageUrl" alt="Profile" class="enlarged-image">
+  </div>
+
+</p-dialog>

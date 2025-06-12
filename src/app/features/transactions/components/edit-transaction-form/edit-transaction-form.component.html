@@ -1,0 +1,105 @@
+<form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="description">Description</label>
+      <input pInputText id="description" formControlName="description" />
+      <small
+        *ngIf="editForm.get('description')?.invalid && editForm.get('description')?.touched"
+        class="p-error"
+      >
+        Description is required.
+      </small>
+    </div>
+    <div class="p-field">
+      <label for="amount">Amount</label>
+      <input pInputText id="amount" type="number" formControlName="amount" />
+      <small
+        *ngIf="editForm.get('amount')?.invalid && editForm.get('amount')?.touched"
+        class="p-error"
+      >
+        Amount must be greater than 0.
+      </small>
+    </div>
+    <div class="p-field">
+      <label for="transactionDate">Date</label>
+      <p-calendar
+        id="transactionDate"
+        formControlName="transactionDate"
+        [showIcon]="true"
+        dateFormat="yy-mm-dd"
+      ></p-calendar>
+      <small
+        *ngIf="editForm.get('transactionDate')?.invalid && editForm.get('transactionDate')?.touched"
+        class="p-error"
+      >
+        Date is required.
+      </small>
+    </div>
+    <div class="p-field">
+      <label for="categoryId">Category</label>
+      <p-dropdown
+        id="categoryId"
+        [options]="categories"
+        formControlName="categoryId"
+        optionLabel="label"
+        optionValue="value"
+        [showClear]="true"
+      ></p-dropdown>
+      <small
+        *ngIf="editForm.get('categoryId')?.invalid && editForm.get('categoryId')?.touched"
+        class="p-error"
+      >
+        Category is required.
+      </small>
+    </div>
+    <div class="p-field">
+      <label for="accountId">Account</label>
+      <p-dropdown
+        id="accountId"
+        [options]="accounts"
+        formControlName="accountId"
+        optionLabel="label"
+        optionValue="value"
+        [showClear]="true"
+      ></p-dropdown>
+      <small
+        *ngIf="editForm.get('accountId')?.invalid && editForm.get('accountId')?.touched"
+        class="p-error"
+      >
+        Account is required.
+      </small>
+    </div>
+    <div class="p-field">
+      <label for="transactionType">Type</label>
+      <p-dropdown
+        id="transactionType"
+        [options]="transactionTypes"
+        formControlName="transactionType"
+        optionLabel="label"
+        optionValue="value"
+      ></p-dropdown>
+      <small
+        *ngIf="editForm.get('transactionType')?.invalid && editForm.get('transactionType')?.touched"
+        class="p-error"
+      >
+        Transaction type is required.
+      </small>
+    </div>
+  </div>
+  <div class="p-d-flex p-jc-end p-mt-3">
+    <button
+      pButton
+      type="button"
+      label="Cancel"
+      class="p-button-secondary"
+      (click)="onCancel()"
+    ></button>
+    <button
+      pButton
+      type="submit"
+      label="Save"
+      class="p-ml-2"
+      [disabled]="!editForm.valid"
+    ></button>
+  </div>
+</form>

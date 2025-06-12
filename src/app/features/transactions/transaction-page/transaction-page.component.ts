@@ -5,7 +5,7 @@ import { SelectModule } from 'primeng/select';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
-import { Transaction, TransactionQueryDto } from '../models';
+import { Transaction, TransactionCreateDto, TransactionQueryDto } from '../models';
 import { DialogModule } from 'primeng/dialog';
 import { DatePickerModule } from 'primeng/datepicker';
 import { CategoryService } from '../../../core/services/category.service';
@@ -13,11 +13,12 @@ import { AccountService } from '../../../core/services/account.service';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { DataService } from '../../../core/services/data.service';
 import { forkJoin, Subject, takeUntil } from 'rxjs';
+import { EditTransactionFormComponent } from '../components/edit-transaction-form/edit-transaction-form.component';
 
 @Component({
   selector: 'app-transaction-page',
   imports: [ TableModule, SelectModule, CommonModule, DialogModule, DatePickerModule, ButtonModule, ReactiveFormsModule,
-          RadioButtonModule, FormsModule
+          RadioButtonModule, FormsModule, EditTransactionFormComponent
   ],
   templateUrl: './transaction-page.component.html',
   styleUrl: './transaction-page.component.css'
@@ -25,6 +26,8 @@ import { forkJoin, Subject, takeUntil } from 'rxjs';
 export class TransactionPageComponent implements OnInit, OnDestroy {
   transactions: Transaction[] = [];
   selectedTransactions: Transaction[] = [];
+  selectedTransaction: Transaction | null = null;
+  showTransactionModal: boolean = false;
   totalRecords: number = 0;
   loading: boolean = false;
   displayFilter: boolean = false;
@@ -38,6 +41,7 @@ export class TransactionPageComponent implements OnInit, OnDestroy {
   categories: any[] = [];
   accounts: any[] = []; 
   filterForm: FormGroup;
+
   exportTransactions() {
     this.transactionService.exportTransactions().subscribe({
     next: (blob: Blob) => {
@@ -130,6 +134,11 @@ export class TransactionPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  showModal(transaction: Transaction) {
+    this.selectedTransaction = transaction;
+    this.showTransactionModal = true;
+  }
+
   openFilter() {
     this.displayFilter = true;
   }
@@ -197,6 +206,28 @@ export class TransactionPageComponent implements OnInit, OnDestroy {
         console.error('O‘chirishda xatolik:', err);
       }
     });
+  }
+
+  onFormSubmitted(dto: TransactionCreateDto) {
+    debugger;
+    if (this.selectedTransaction?.id) {
+      this.transactionService
+        .editTransaction(this.selectedTransaction.id, dto)
+        .subscribe({
+          next: () => {
+            this.onModalClose();
+            this.loadTransactions({ first: 0, rows: 10 }); // Reload table
+          },
+          error: (error) => {
+            console.error('Error updating transaction:', error);
+          },
+        });
+    }
+  }
+  
+  onModalClose() {
+    this.showTransactionModal = false;
+    this.selectedTransaction = null;
   }
 
 }

@@ -1,0 +1,110 @@
+<div class="report-container">
+  <h2 class="report-title">Reports</h2>
+
+  <!-- Monthly Report Section -->
+  <div class="monthly-report">
+    <p-card>
+      <div slot="header">
+        <h3 class="card-header">Monthly Report</h3>
+      </div>
+      <div class="filter-section">
+        <p-dropdown
+          [options]="yearOptions"
+          [(ngModel)]="selectedYear"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select Year"
+          [ngStyle]="{'width': '150px', 'margin-right': '10px'}"
+          (ngModelChange)="loadMonthlyReport()"
+        ></p-dropdown>
+        <p-dropdown
+          [options]="monthOptions"
+          [(ngModel)]="selectedMonth"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select Month"
+          [ngStyle]="{'width': '150px'}"
+          (ngModelChange)="loadMonthlyReport()"
+        ></p-dropdown>
+      </div>
+      <div class="report-summary" *ngIf="monthlyReport">
+        <div class="summary-card">
+          <p><strong>Total Income:</strong> {{ monthlyReport.totalIncome | currency:'USD' }}</p>
+          <p><strong>Total Expense:</strong> {{ monthlyReport.totalExpense | currency:'USD' }}</p>
+          <p><strong>Net Balance:</strong> {{ monthlyReport.netBalance | currency:'USD' }}</p>
+        </div>
+        <h4 class="category-title">Categories</h4>
+        <ul class="category-list">
+          <li *ngFor="let category of monthlyReport.categories || []" class="category-item">
+            <span class="category-name">{{ category.name }}:</span>
+            <span class="category-amount">{{ category.amount | currency:'USD' }}</span>
+          </li>
+          <li *ngIf="!(monthlyReport.categories?.length)" class="no-data">No categories available</li>
+        </ul>
+      </div>
+      <div *ngIf="!monthlyReport && !loading" class="no-data">No monthly report data available</div>
+    </p-card>
+  </div>
+
+  <!-- Custom Report Section -->
+  <div class="custom-report">
+    <p-card>
+      <div slot="header">
+        <h3 class="card-header">Custom Report</h3>
+      </div>
+      <div class="filter-section">
+        <div class="date-picker">
+          <label for="startDate">Start Date</label>
+          <p-calendar
+            id="startDate"
+            [(ngModel)]="filter.startDate"
+            dateFormat="yy-mm-dd"
+            [showIcon]="true"
+            [ngStyle]="{'width': '100%'}"
+          ></p-calendar>
+        </div>
+        <div class="date-picker">
+          <label for="endDate">End Date</label>
+          <p-calendar
+            id="endDate"
+            [(ngModel)]="filter.endDate"
+            dateFormat="yy-mm-dd"
+            [showIcon]="true"
+            [ngStyle]="{'width': '100%'}"
+          ></p-calendar>
+        </div>
+        <button (click)="onFilterSubmit()" class="generate-button">Generate Report</button>
+      </div>
+      <div class="report-summary" *ngIf="customReport">
+        <div class="summary-card">
+          <p><strong>Total Income:</strong> {{ customReport.totalIncome | currency:'USD' }}</p>
+          <p><strong>Total Expense:</strong> {{ customReport.totalExpense | currency:'USD' }}</p>
+        </div>
+        <h4 class="category-title">Transactions</h4>
+        <p-table [value]="customReport.transactions" [loading]="loading">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>Category</th>
+              <th>Account</th>
+              <th>Type</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-transaction>
+            <tr>
+              <td>{{ transaction.transactionDate | date:'shortDate' }}</td>
+              <td>{{ transaction.description }}</td>
+              <td>{{ transaction.amount | currency:'USD' }}</td>
+              <td>{{ transaction.categoryName }}</td>
+              <td>{{ transaction.accountName }}</td>
+              <td>{{ transaction.transactionType === 0 ? 'Kirim' : 'Chiqim' }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div *ngIf="!customReport && !loading" class="no-data">No custom report data available</div>
+    </p-card>
+  </div>
+</div>

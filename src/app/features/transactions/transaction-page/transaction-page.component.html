@@ -27,6 +27,17 @@
         </div>
     </div>
     <div class="transaction-list">
+        <div *ngIf="selectedTransactions.length > 0" class="summary-panel">
+              <p>✅ Belgilangan: {{ selectedTransactions.length }} ta / Umumiy: {{ totalRecords }} ta</p>
+              <p> 🔺Jami chiqim: 
+                {{ getTotalExpense() | currency:'USD' }}
+              </p>
+              <p><span style="color: green;">▼</span> Jami kirim: 
+                {{ getTotalIncome() | currency:'USD' }}
+              </p>
+              <button pButton type="button" label="🗑️ O'chirish" class="p-button-danger" (click)="deleteSelected()"></button>
+        </div>
+
         <p-table [value]="transactions"
          [(selection)]="selectedTransactions"
          dataKey="id"
@@ -42,7 +53,7 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 3em">
-                        <p-tableCheckbox></p-tableCheckbox>
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                     </th>
                     <th pSortableColumn="date"> Date <p-sortIcon field="date"></p-sortIcon> </th>
                     <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon> </th>
@@ -54,32 +65,38 @@
 
             <ng-template pTemplate="body" let-t >
                 <tr [pSelectableRow]="t">
-                    <td><p-tableCheckbox [value]="t"></p-tableCheckbox></td>
-                    <td>{{ t.transactionDate | date:'shortDate' }}</td>
-                    <td class="amount-cell" [style.color]="t.transactionType === 0 ? '#28a745' : '#dc3545'">
+                    <td (click)="$event.stopPropagation()">
+                      <p-tableCheckbox [value]="t"></p-tableCheckbox>
+                    </td>
+                    <td (click)="showModal(t)" (click)="$event.stopPropagation()">{{ t.transactionDate | date:'shortDate' }}</td>
+                    <td (click)="showModal(t)" (click)="$event.stopPropagation()" class="amount-cell" [style.color]="t.transactionType === 0 ? '#28a745' : '#dc3545'">
                       {{ (t.transactionType === 0 ? t.amount : -t.amount) | currency : 'USD' }}
                     </td>
-                    <td>{{ t.categoryName }}</td>
-                    <td>{{ t.accountName }}</td>
-                    <td>{{ t.description }}</td>
+                    <td (click)="showModal(t)" (click)="$event.stopPropagation()">{{ t.categoryName }}</td>
+                    <td (click)="showModal(t)" (click)="$event.stopPropagation()">{{ t.accountName }}</td>
+                    <td (click)="showModal(t)" (click)="$event.stopPropagation()">{{ t.description }}</td>
                 </tr>
             </ng-template>
-
-            <div *ngIf="selectedTransactions.length > 0" class="summary-panel">
-              <p>✅ Belgilangan: {{ selectedTransactions.length }} ta / Umumiy: {{ totalRecords }} ta</p>
-              <p>🔻 Jami chiqim: 
-                {{ getTotalExpense() | currency:'USD' }}
-              </p>
-              <p>🔺 Jami kirim: 
-                {{ getTotalIncome() | currency:'USD' }}
-              </p>
-              <button pButton type="button" label="🗑️ O'chirish" class="p-button-danger" (click)="deleteSelected()"></button>
-            </div>
-
         </p-table>
     </div>
 </div>
 
+<p-dialog
+      [(visible)]="showTransactionModal"
+      [modal]="true"
+      [style]="{ width: '600px' }"
+      [draggable]="true"
+      (onHide)="onModalClose()"
+    >
+      <ng-template pTemplate="header">
+        <h3 style="margin-left: 40%; font-weight: 600;">Tahrirlash</h3>
+      </ng-template>
+      <app-edit-transaction-form
+        [transaction]="selectedTransaction"
+        (formSubmitted)="onFormSubmitted($event)"
+        (cancel)="onModalClose()"
+      ></app-edit-transaction-form>
+    </p-dialog>
 
 <p-dialog header="Advanced Filters"
           [(visible)]="displayFilter"

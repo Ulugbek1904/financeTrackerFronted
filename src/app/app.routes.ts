@@ -33,8 +33,10 @@ export const routes: Routes = [
         data: { roles: ['User', 'Admin'] },
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-            { path: 'dashboard', loadComponent: () => import('./features/dashboards/dashboard/dashboard.component').then(m => m.DashboardComponent) },
-            { path: 'transaction', loadComponent: () => import('./features/transactions/transaction-page/transaction-page.component').then(m => m.TransactionPageComponent) },
+            { path: 'dashboard', loadComponent: () => import('./features/dashboards/dashboard/dashboard.component').then(d => d.DashboardComponent) },
+            { path: 'transaction', loadComponent: () => import('./features/transactions/transaction-page/transaction-page.component').then(t => t.TransactionPageComponent) },
+            { path: 'report', loadComponent: () => import('./features/report/report-page/report-page.component').then(r => r.ReportPageComponent) },
+            { path: 'profile', loadComponent: () => import('./features/profile/profile-page/profile-page.component').then(p => p.ProfilePageComponent)}
         ]
     },
     {

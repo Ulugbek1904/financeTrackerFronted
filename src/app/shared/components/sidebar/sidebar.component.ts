@@ -5,9 +5,10 @@ import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from '../../../core/services/auth.service';
 import { UserService } from '../../../core/services/user.service';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
-  imports: [PanelMenu],
+  imports: [PanelMenu, DialogModule],
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
@@ -63,13 +64,7 @@ export class SidebarComponent implements OnInit {
         icon: 'pi pi-user', 
         routerLink: ['/profile'],
         command: () => this.handleMenuClick('Profile')
-      },
-      { 
-        label: 'Settings', 
-        icon: 'pi pi-cog', 
-        routerLink: ['/settings'],
-        command: () => this.handleMenuClick('Settings')
-      },
+      }
     ];
     
     this.userService.getMe().subscribe({
@@ -91,5 +86,12 @@ export class SidebarComponent implements OnInit {
     localStorage.removeItem('accessToken');
     this.authService.logout();
     this.router.navigate(['/home']);
+  }
+
+  // profile picture
+  showImageModal: boolean = false;
+
+  openImageModal() {
+    this.showImageModal = true;
   }
 }

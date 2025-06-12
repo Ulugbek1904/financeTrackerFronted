@@ -1,0 +1,51 @@
+.p-fluid {
+  padding: 1rem;
+}
+
+.p-field {
+  margin-bottom: 1.5rem;
+}
+
+.p-field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.p-field input,
+.p-field .p-dropdown,
+.p-field .p-calendar {
+  width: 100%;
+}
+
+.p-error {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.p-d-flex.p-jc-end {
+  gap: 1rem;
+}
+
+.p-button-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.p-button-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+
+@media (max-width: 600px) {
+  .p-fluid {
+    padding: 0.5rem;
+  }
+
+  .p-field {
+    margin-bottom: 1rem;
+  }
+}
