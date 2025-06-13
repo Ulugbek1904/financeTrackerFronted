@@ -1,14 +1,14 @@
 .report-container {
   padding: 1.5rem;
-  background-color: #1e2a38;
-  color: #ffffff;
+  background-color: #e9f1f5;
+  color: black;
   min-height: 100vh;
 }
 
 .report-title {
   font-size: 2rem;
   margin-bottom: 1.5rem;
-  color: #ffffff;
+  color: black;
 }
 
 .monthly-report, .custom-report {

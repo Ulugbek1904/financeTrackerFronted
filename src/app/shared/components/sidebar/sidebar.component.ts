@@ -27,43 +27,36 @@ export class SidebarComponent implements OnInit {
         label: 'Dashboard', 
         icon: 'pi pi-home', 
         routerLink: ['/dashboard'],
-        command: () => this.handleMenuClick('Dashboard')
       },
       { 
         label: 'Transaction', 
         icon: 'pi pi-wallet', 
         routerLink: ['/transaction'],
-        command: () => this.handleMenuClick('Tranzaksiyalar')
       },
       { 
         label: 'Budget', 
         icon: 'pi pi-dollar', 
         routerLink: ['/budget'],
-        command: () => this.handleMenuClick('Budget')
       },
       { 
         label: 'Category', 
         icon: 'pi pi-list', 
         routerLink: ['/category'],
-        command: () => this.handleMenuClick('Category')
       },
       { 
         label: 'Report', 
         icon: 'pi pi-chart-bar', 
         routerLink: ['/report'],
-        command: () => this.handleMenuClick('Report')
       },
       { 
         label: 'Account', 
         icon: 'pi pi-credit-card', 
         routerLink: ['/account'],
-        command: () => this.handleMenuClick('Account')
       },
       { 
         label: 'Profile', 
         icon: 'pi pi-user', 
         routerLink: ['/profile'],
-        command: () => this.handleMenuClick('Profile')
       }
     ];
     
@@ -79,16 +72,12 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-  handleMenuClick(sectionName: string) {
-  }
-
   logout() {
     localStorage.removeItem('accessToken');
     this.authService.logout();
     this.router.navigate(['/home']);
   }
-
-  // profile picture
+  
   showImageModal: boolean = false;
 
   openImageModal() {

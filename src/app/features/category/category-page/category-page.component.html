@@ -1,0 +1,102 @@
+<div class="category-page-container">
+  <!-- Category Form -->
+  <p-card [header]="isEditing ? 'Edit Category' : 'Create Category'" styleClass="category-form-card">
+    <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+      <div class="p-fluid">
+        <div class="p-field">
+          <label for="name">Category Name   </label>
+          <input
+            pInputText
+            id="name"
+            formControlName="name"
+            placeholder="e.g., Salary"
+            [ngClass]="{'ng-invalid ng-dirty': categoryForm.get('name')?.invalid && categoryForm.get('name')?.touched}"
+          />
+          <small class="p-error" *ngIf="categoryForm.get('name')?.hasError('required') && categoryForm.get('name')?.touched">
+            Name is required
+          </small>
+          <small class="p-error" *ngIf="categoryForm.get('name')?.hasError('minlength') ">
+            Name must be at least 3 characters long
+          </small>
+        </div>
+
+        <div class="p-field-checkbox">
+          <p-checkbox
+            formControlName="isIncome"
+            binary="true"
+            inputId="isIncome"
+          ></p-checkbox>
+          <label for="isIncome" style="margin-left: 0.5em;">Is Income Category?</label>
+        </div>
+
+        <div class="form-actions">
+          <button
+            pButton
+            type="submit"
+            [label]="isEditing ? 'Update' : 'Create'"
+            icon="pi pi-check"
+            class="p-button-rounded"
+            [disabled]="categoryForm.invalid"
+          ></button>
+          <button
+            pButton
+            type="button"
+            label="Cancel"
+            icon="pi pi-times"
+            class="p-button-rounded"
+            (click)="resetForm()"
+            *ngIf="isEditing"
+          ></button>
+        </div>
+      </div>
+    </form>
+  </p-card>
+
+  <!-- Category List -->
+  <p-card header="Categories" styleClass="categories-table-card">
+    <p-toast></p-toast>
+    <p-table
+      *ngIf="!isLoading"
+      [value]="categories"
+      [tableStyle]="{'min-width': '50rem'}"
+      dataKey="id"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Created At</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-category let-rowIndex="rowIndex">
+        <tr>
+          <td>{{ rowIndex+1 }}</td>
+          <td>{{ category.name }}</td>
+          <td>{{ category.isIncome ? 'Income' : 'Expense' }}</td>
+          <td>{{ category.isDefault ? 'Yes' : 'No' }}</td>
+          <td>{{ category.createdAt | date: 'short' }}</td>
+          <td>
+            <button
+              pButton
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-text"
+              (click)="editCategory(category)"
+              title="Edit"
+            ></button>
+            <button
+              pButton
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-text p-button-danger"
+              (click)="deleteCategory(category.id)"
+              title="Delete"
+              [disabled]="category.isDefault"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+</div>

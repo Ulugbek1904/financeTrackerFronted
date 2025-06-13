@@ -1,0 +1,28 @@
+<p-toast></p-toast>
+<div class="card">
+  <p-table [value]="accounts" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Balance</th>
+        <th>Primary</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-account>
+      <tr>
+        <td>{{ account.name }}</td>
+        <td>{{ account.type }}</td>
+        <td>{{ account.balance | currency }}</td>
+        <td>{{ account.isPrimary ? 'Yes' : 'No' }}</td>
+        <td>
+          <p-button icon="pi pi-pencil" (click)="openEditDialog(account)" styleClass="p-button-text"></p-button>
+          <p-button icon="pi pi-trash" (click)="deleteAccount(account.id)" styleClass="p-button-text p-button-danger"></p-button>
+          <p-button icon="pi pi-star" (click)="setPrimary(account.id)" styleClass="p-button-text" [disabled]="account.isPrimary"></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-button label="Create Account" icon="pi pi-plus" (click)="openCreateDialog()"></p-button>
+</div>

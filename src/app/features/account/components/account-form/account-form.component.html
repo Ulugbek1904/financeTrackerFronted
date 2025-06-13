@@ -1,0 +1,26 @@
+<div class="p-fluid">
+  <form [formGroup]="accountForm">
+    <div class="p-field">
+      <label for="name">Name</label>
+      <input id="name" pInputText formControlName="name" />
+      <small *ngIf="accountForm.get('name')?.invalid && accountForm.get('name')?.touched" class="p-error">Name is required.</small>
+    </div>
+    <div class="p-field">
+      <label for="type">Type</label>
+      <p-dropdown id="type" [options]="accountTypes" formControlName="type" placeholder="Select a Type"></p-dropdown>
+      <small *ngIf="accountForm.get('type')?.invalid && accountForm.get('type')?.touched" class="p-error">Type is required.</small>
+    </div>
+    <div class="p-field">
+      <label for="balance">Balance</label>
+      <p-inputNumber id="balance" formControlName="balance" mode="currency" currency="USD"></p-inputNumber>
+      <small *ngIf="accountForm.get('balance')?.invalid && accountForm.get('balance')?.touched" class="p-error">Balance must be non-negative.</small>
+    </div>
+    <div class="p-field-checkbox">
+      <p-checkbox formControlName="isPrimary" label="Primary Account" [binary]="true"></p-checkbox>
+    </div>
+    <div class="p-mt-2">
+      <p-button label="Save" icon="pi pi-check" (click)="save()" [disabled]="accountForm.invalid"></p-button>
+      <p-button label="Cancel" icon="pi pi-times" (click)="cancel()" styleClass="p-button-text"></p-button>
+    </div>
+  </form>
+</div>

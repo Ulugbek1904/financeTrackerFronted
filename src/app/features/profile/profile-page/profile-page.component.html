@@ -1,1 +1,89 @@
-<p>profile-page works!</p>
+<div class="profile-layout">
+  <!-- Header -->
+  <div class="profile-header">
+    <img [src]="profileImageUrl" alt="Profile Avatar" class="profile-avatar" (click)="openImageModal()" />
+    <div class="userName">
+      <h2 class="profile-name">{{ userName || 'User Name' }}</h2>
+      <h4 class="profile-email">{{ email || 'User email'}}</h4>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Change Password -->
+    <div class="form-section">
+  <h3>Change Password</h3>
+  <p-toast></p-toast>
+
+  <div class="input-group">
+    <input 
+      type="password" 
+      placeholder="Old Password" 
+      [(ngModel)]="passwordDto.oldPassword" 
+      class="p-inputtext" />
+    <small class="p-error" *ngIf="errors?.['oldPassword']">{{ errors?.['oldPassword'] }}</small>
+  </div>
+
+  <div class="input-group">
+    <input 
+      type="password" 
+      placeholder="New Password" 
+      [(ngModel)]="passwordDto.newPassword" 
+      class="p-inputtext" />
+    <small class="p-error" *ngIf="errors?.['newPassword']">{{ errors?.['newPassword'] }}</small>
+  </div>
+
+  <div class="input-group">
+    <input 
+      type="password" 
+      placeholder="Re-enter New Password" 
+      [(ngModel)]="reEnterPassword" 
+      class="p-inputtext" />
+    <small class="p-error" *ngIf="errors?.['reEnterPassword']">{{ errors?.['reEnterPassword'] }}</small>
+  </div>
+
+  <button 
+    pButton 
+    label="Change Password" 
+    (click)="changePassword()" 
+    class="p-button-primary" 
+    [disabled]="isSubmitting">
+  </button>
+</div>
+
+    <!-- Update Profile -->
+    <div class="form-section2">
+      <h3>Update Profile</h3>
+      <input type="text" placeholder="First Name" [(ngModel)]="profileDto.firstName" class="p-inputtext" />
+      <input type="text" placeholder="Last Name" [(ngModel)]="profileDto.lastName" class="p-inputtext" />
+      <button pButton label="Update Profile" (click)="updateProfile()" class="p-button-primary"></button>
+    </div>
+
+  <!-- Image Edit Modal -->
+  <p-dialog 
+    [(visible)]="showImageModal" 
+    [modal]="true" 
+    [resizable]="false" 
+    [closable]="true" 
+    [style]="{width: '480px', border: '1px solid rgba(0, 0, 0, 0.85)'}"
+    [dismissableMask]="true"
+    [draggable]="false"
+    >
+    <ng-template pTemplate="header">
+      <div class="custom-header">
+        Upload a New Avatar
+      </div>
+    </ng-template>
+
+    <div class="modal-content">
+      <div class="canvas">
+        <img [src]="profileImageUrl" alt="Current Avatar" class="modal-avatar" />
+      </div>
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" class="file-input" />
+      <div class="modal-actions">
+        <button (click)="saveImage()"><i class="pi pi-save"></i> Save</button>
+        <button (click)="cancelImage()">Cancel</button>
+      </div>
+    </div>
+  </p-dialog>
+</div>

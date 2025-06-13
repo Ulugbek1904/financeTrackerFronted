@@ -36,7 +36,9 @@ export const routes: Routes = [
             { path: 'dashboard', loadComponent: () => import('./features/dashboards/dashboard/dashboard.component').then(d => d.DashboardComponent) },
             { path: 'transaction', loadComponent: () => import('./features/transactions/transaction-page/transaction-page.component').then(t => t.TransactionPageComponent) },
             { path: 'report', loadComponent: () => import('./features/report/report-page/report-page.component').then(r => r.ReportPageComponent) },
-            { path: 'profile', loadComponent: () => import('./features/profile/profile-page/profile-page.component').then(p => p.ProfilePageComponent)}
+            { path: 'profile', loadComponent: () => import('./features/profile/profile-page/profile-page.component').then(p => p.ProfilePageComponent)},
+            { path: 'category', loadComponent: () => import('./features/category/category-page/category-page.component').then(c => c.CategoryPageComponent) },
+            { path: 'account', loadComponent: () => import('./features/account/account-page/account-page.component').then(a => a.AccountPageComponent)}
         ]
     },
     {
@@ -54,7 +56,7 @@ export const routes: Routes = [
         component: NotFoundComponent
     },
     {
-        path: 'unauthorized',
+        path: 'unauthorized',   
         loadComponent: () => import('./core/un-authorized/un-authorized.component').then(m => m.UnAuthorizedComponent)
     }
 ];

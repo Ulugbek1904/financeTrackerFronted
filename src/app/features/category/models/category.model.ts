@@ -3,7 +3,12 @@ export interface Category {
   name: string;
   isIncome: boolean;
   isDefault: boolean;
-  userId?: number | null;
-  createdAt?: string;
-  updatedAt?: string;
+  userId?: string | null;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface CategoryDto {
+  name: string;
+  isIncome: boolean;
 }
