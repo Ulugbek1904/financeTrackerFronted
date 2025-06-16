@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Account, CreateAccountDto } from '../models';
+import { Account, AccountType, CreateAccountDto } from '../models';
 import { ButtonModule } from 'primeng/button';
 import { AccountFormComponent } from '../components/account-form/account-form.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -29,6 +28,10 @@ export class AccountPageComponent {
     this.messageService.add({severity: 'error', summary: 'Error', detail: message});
   }
 
+  showConfirm(message: string): any {
+    this.messageService.add({severity: 'warning', summary: "Warning", detail: message})
+  }
+
   accounts: Account[] = [];
   ref: DynamicDialogRef | undefined;
 
@@ -45,10 +48,13 @@ export class AccountPageComponent {
   loadAccounts(): void {
     this.accountService.getAccounts().subscribe({
       next: (accounts) => (this.accounts = accounts),
-      error: () => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to load accounts' })
+      error: () => this.showError("Failed to load accounts")
     });
   }
 
+  getAccountTypeName(type: AccountType): string {
+    return AccountType[type];
+  }
   openCreateDialog(): void {
     this.ref = this.dialogService.open(AccountFormComponent, {
       header: 'Create Account',
@@ -60,10 +66,10 @@ export class AccountPageComponent {
       if (accountDto) {
         this.accountService.createAccount(accountDto).subscribe({
           next: () => {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Account created' });
+            this.showSuccess("Account created");
             this.loadAccounts();
           },
-          error: () => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to create account' })
+          error: () => this.showError("Failed to create account")
         });
       }
     });
@@ -81,42 +87,44 @@ export class AccountPageComponent {
       if (accountDto) {
         this.accountService.updateAccount(account.id, accountDto).subscribe({
           next: () => {
- this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Account updated' });
+            this.showSuccess("Account updated");
             this.loadAccounts();
           },
-          error: () => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to update account' })
+          error: () => this.showError("Failed to update account")
         });
       }
     });
   }
 
   deleteAccount(id: string): void {
-    this.accountService.deleteAccount(id).subscribe({
-      next: () => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Account deleted' });
-        this.loadAccounts();
-      },
-      error: () => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete account' })
-    });
+    if(confirm("are u sure!!! bu akkauntga bog'langan tranzaksiyalar ham o'chib ketadi?")){
+      this.accountService.deleteAccount(id).subscribe({
+        next: () => {
+          this.showSuccess("Account deleted");
+          this.loadAccounts();
+        },
+        error: () => this.showError("Failed to delete account")
+      });
+    }
   }
 
   setPrimary(id: string): void {
     this.accountService.setPrimary(id).subscribe({
       next: () => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Primary account set' });
+        this.showSuccess("Primary account set");
         this.loadAccounts();
       },
-      error: () => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to set primary account' })
+      error: () => this.showError("Failed to set primary account")
     });
   }
 
   updateBalance(id: string, balance: number): void {
     this.accountService.updateBalance(id, balance).subscribe({
       next: () => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Balance updated' });
+        this.showSuccess("Balance updated");
         this.loadAccounts();
       },
-      error: () => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to update balance' })
+      error: () => this.showError("Failed to update balance")
     });
   }
 }

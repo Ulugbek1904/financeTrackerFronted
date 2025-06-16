@@ -79,7 +79,7 @@
       <div class="canvas">
         <img [src]="profileImageUrl" alt="Current Avatar" class="modal-avatar" />
       </div>
-      <input type="file" accept="image/*" (change)="onFileSelected($event)" class="file-input" />
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" class="file-input hover:text-blue-500" />
       <div class="modal-actions">
         <button (click)="saveImage()"><i class="pi pi-save"></i> Save</button>
         <button (click)="cancelImage()">Cancel</button>

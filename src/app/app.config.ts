@@ -1,11 +1,15 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import Aura from '@primeng/themes/aura';
 import { provideRouter } from '@angular/router';
+
 import { routes } from './app.routes';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,6 +27,9 @@ export const appConfig: ApplicationConfig = {
           cssLayer: false
         }
       }
-    })
+    }),
+    importProvidersFrom(BrowserAnimationsModule), 
+    { provide: MessageService, useClass: MessageService },
+    { provide: ConfirmationService, useClass: ConfirmationService }
   ]
 };

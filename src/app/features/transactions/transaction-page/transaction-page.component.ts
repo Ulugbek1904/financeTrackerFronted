@@ -209,7 +209,6 @@ export class TransactionPageComponent implements OnInit, OnDestroy {
   }
 
   onFormSubmitted(dto: TransactionCreateDto) {
-    debugger;
     if (this.selectedTransaction?.id) {
       this.transactionService
         .editTransaction(this.selectedTransaction.id, dto)

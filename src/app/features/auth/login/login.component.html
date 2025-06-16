@@ -1,25 +1,39 @@
 <div class="login-wrapper">
   <div class="login-container">
-    
     <div class="logo-wrapper">
-      <img src="/assets/images/logo2.png" alt="Logo" class="logo" />
+      <a routerLink="/home">
+        <img src="/assets/images/logo2.png" alt="Logo" class="logo" />
+      </a>
     </div>
-
-    <h2 class="title">Kirish</h2>
+    <h2 class="text-2xl text-center my-6 font-medium">Shaxsiy kabinetga kiring</h2>
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <input type="email" formControlName="email" placeholder="Email" />
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Email"
+        class="mb-6"
+      />
       <input type="password" formControlName="password" placeholder="Parol" />
+      <a
+        routerLink="/forgot-password"
+        class="w-full block text-end text-sm mt-1 text-gray-400 transition-all hover:text-blue-500"
+      >
+        Parolni unutdingizmi?
+      </a>
 
-      <button type="submit">Kirish</button>
+      <p-button type="submit" label="Kirish" styleClass="w-full mt-4" />
 
-      <div class="form-links">
-        <a routerLink="/forgot-password">Parolni unutdingizmi?</a>
-        <span>|</span>
-        <a href="mailto:julugbek023@gmail.com">Ro'yxatdan o'tish uchun bog'lanish</a>
+      <div class="flex items-center justify-center mt-5 text-sm">
+        <span class="text-gray-500 mr-1">Hali ro'yxatdan o'tmaganmisiz?</span>
+        <a
+          href="mailto:julugbek023@gmail.com"
+          class="text-blue-500 underline underline-offset-3 transition-all hover:text-blue-300 hover:no-underline"
+        >
+          Ro'yxatdan o'tish
+        </a>
       </div>
     </form>
-
   </div>
 </div>
 <router-outlet></router-outlet>

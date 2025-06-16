@@ -1,29 +1,33 @@
 <div class="layout-wrapper">
-  <aside class="sidebar">
-    <app-sidebar></app-sidebar>
-  </aside>
+  <p-toast></p-toast>
+  <app-sidebar></app-sidebar>
 
   <main class="main-content">
     <div class="header">
-      <app-header (transactionTypeSelected)="handleTransactionType($event)"></app-header>
+      <app-header
+        (transactionTypeSelected)="handleTransactionType($event)"
+      ></app-header>
     </div>
-    
+
     <div class="page-body">
       <router-outlet></router-outlet>
     </div>
 
-    <p-dialog 
-      [(visible)]="showTransactionModal" 
-      [modal]="true" 
+    <p-dialog
+      [(visible)]="showTransactionModal"
+      [modal]="true"
       [style]="{ width: '600px' }"
       [draggable]="true"
       (onHide)="onModalClose()"
+      [dismissableMask]="true"
     >
       <ng-template pTemplate="header">
-        <h3 style="margin-left: 40%; font-weight: 600;">{{ transactionType === 'income' ? 'Yangi Kirim' : 'Yangi Chiqim' }}</h3>
+        <h3 style="margin-left: 40%; font-weight: 600">
+          {{ transactionType === "income" ? "Yangi Kirim" : "Yangi Chiqim" }}
+        </h3>
       </ng-template>
-      
-      <app-transaction-form 
+
+      <app-transaction-form
         [transactionType]="transactionType"
         (formSubmitted)="onModalClose()"
       ></app-transaction-form>

@@ -60,7 +60,7 @@ export class HeaderComponent {
           this.currentSection = 'Settings';
           break;
         default:
-          this.currentSection = 'Tranzaksiyalar';
+          this.currentSection = '';
       }
     });
   }

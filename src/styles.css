@@ -1,12 +1,12 @@
+@import "tailwindcss";
 @import "primeicons/primeicons.css";
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
   color: #333;
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
+:root {
+  --p-slate-100: #e9f1f5 !important;
 }

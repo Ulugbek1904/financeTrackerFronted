@@ -1,7 +1,7 @@
-<div class="header">
-  <div class="left-section">
-    <span class="title">{{ currentSection }}</span>
-  </div>
+<div
+  class="header flex items-center justify-between px-4 py-3 bg-white rounded-tr-lg border-l border-gray-300"
+>
+  <div class="text-2xl font-medium">{{ currentSection }}</div>
 
   <div class="right-section">
     <button class="income-button" (click)="addIncome()">
@@ -16,5 +16,3 @@
     </button>
   </div>
 </div>
-
-

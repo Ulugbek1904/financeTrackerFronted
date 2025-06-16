@@ -13,7 +13,7 @@
     <ng-template pTemplate="body" let-account>
       <tr>
         <td>{{ account.name }}</td>
-        <td>{{ account.type }}</td>
+        <td>{{ getAccountTypeName(account.type) }}</td>
         <td>{{ account.balance | currency }}</td>
         <td>{{ account.isPrimary ? 'Yes' : 'No' }}</td>
         <td>

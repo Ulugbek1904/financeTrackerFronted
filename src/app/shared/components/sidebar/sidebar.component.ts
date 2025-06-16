@@ -1,14 +1,14 @@
 import { PanelMenu } from 'primeng/panelmenu';
 /* sidebar.component.ts */
 import { Component, inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from '../../../core/services/auth.service';
 import { UserService } from '../../../core/services/user.service';
 import { DialogModule } from 'primeng/dialog';
 
 @Component({
-  imports: [PanelMenu, DialogModule],
+  imports: [PanelMenu, DialogModule, RouterLink],
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']

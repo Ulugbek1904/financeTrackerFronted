@@ -123,12 +123,10 @@
 }
 
 .modal-avatar {
-  width: 212px;
+  width: 100%;
   height: 212px;
-  border-radius: 8px;
   margin-bottom: 20px;
   cursor: grab;
-  border: 5px solid white;
 }
 
 .p-error {
