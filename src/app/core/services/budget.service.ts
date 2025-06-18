@@ -11,7 +11,7 @@ import { ApiUrls } from '../../shared/apiUrl';
 export class BudgetService {
   private apiUrl: string;
     constructor(api: ApiUrls, private http: HttpClient) {
-      this.apiUrl = api.authUrl;
+      this.apiUrl = api.budgetUrl;
     }
 
   getAllBudgets(): Observable<Budget[]> {
