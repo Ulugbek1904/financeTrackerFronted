@@ -10,6 +10,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ApiUrls } from './shared/apiUrl';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,6 +31,7 @@ export const appConfig: ApplicationConfig = {
     }),
     importProvidersFrom(BrowserAnimationsModule), 
     { provide: MessageService, useClass: MessageService },
-    { provide: ConfirmationService, useClass: ConfirmationService }
+    { provide: ConfirmationService, useClass: ConfirmationService },
+    { provide: 'API_URLS', useValue: ApiUrls}
   ]
 };

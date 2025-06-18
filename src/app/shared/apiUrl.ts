@@ -1,3 +1,6 @@
+import { Injectable } from "@angular/core";
+
+@Injectable({ providedIn: 'root' })
 export  class ApiUrls {
     accountUrl: string = 'https://financetrackerbackend-1tp6.onrender.com/api/accounts';
     categoryUrl: string = 'https://financetrackerbackend-1tp6.onrender.com/api/category';
