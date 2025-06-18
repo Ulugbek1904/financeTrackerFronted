@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiUrls } from '../../shared/apiUrl';
 
 export interface User {
   id: string;
@@ -16,13 +17,14 @@ export interface User {
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  private baseUrl = 'http://localhost:5192/api'; // http://localhost:5192/api/dashboard/summary
-
-  constructor(private http: HttpClient) {}
+  private apiUrl: string;
+    constructor(api: ApiUrls, private http: HttpClient) {
+      this.apiUrl = api.userUrl;
+    }
 
   getMe(): Observable<User> {
     const token = localStorage.getItem('accessToken'); 
-    return this.http.get<User>(`${this.baseUrl}/home/get-me?accessToken=${token}`);
+    return this.http.get<User>(`${this.apiUrl}/home/get-me?accessToken=${token}`);
   }
 
   

@@ -73,6 +73,8 @@ export class AccountPageComponent {
         });
       }
     });
+
+    this,this.loadAccounts();
   }
 
   openEditDialog(account: Account): void {

@@ -1,14 +1,16 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiUrls } from '../../shared/apiUrl';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
-  private apiUrl: string = 'http://localhost:5192/api/profile';
-
-  constructor(private http: HttpClient) {}
+  private apiUrl: string;
+    constructor(api: ApiUrls, private http: HttpClient) {
+      this.apiUrl = api.profileUrl;
+    }
 
   uploadPicture(file: File): Observable<any> {
     const formData = new FormData();

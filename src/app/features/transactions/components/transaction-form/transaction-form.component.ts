@@ -24,9 +24,7 @@ export class TransactionFormComponent implements OnInit {
   @Input() transactionType: 'income' | 'expense' = 'income';
   @Output() formSubmitted = new EventEmitter<void>();
 
-  ngOnInit() {
-  this.messageService.add({ severity: 'info', summary: 'Test', detail: 'Bu test xabari' });
-}
+  ngOnInit() {}
 
   categories: Category[] = [];
   accounts: Account[] = [];

@@ -3,15 +3,16 @@ import { Injectable } from '@angular/core';
 import { Budget, BudgetDto, BudgetStats } from '../../features/budget/models';
 import { Observable } from 'rxjs';
 import { TransactionDto } from './dashboard.service';
+import { ApiUrls } from '../../shared/apiUrl';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BudgetService {
-  private apiUrl = 'http://localhost:5192/api/budget';
-  constructor(
-    private http: HttpClient
-  ) { }
+  private apiUrl: string;
+    constructor(api: ApiUrls, private http: HttpClient) {
+      this.apiUrl = api.authUrl;
+    }
 
   getAllBudgets(): Observable<Budget[]> {
     return this.http.get<Budget[]>(`${this.apiUrl}/all`);

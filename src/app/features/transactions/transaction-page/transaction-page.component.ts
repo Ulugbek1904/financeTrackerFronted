@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TransactionService } from '../../../core/services/transaction.service';
@@ -66,7 +67,8 @@ export class TransactionPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private dataService: DataService  
+    private dataService: DataService,
+    private MessageService: MessageService  
   ) {
     this.filterForm = this.formBuilder.group({
       isIncome: [null],
@@ -215,9 +217,11 @@ export class TransactionPageComponent implements OnInit, OnDestroy {
         .subscribe({
           next: () => {
             this.onModalClose();
-            this.loadTransactions({ first: 0, rows: 10 }); // Reload table
+            this.loadTransactions({ first: 0, rows: 10 }); 
+            this.showSuccess('Tranzaksiya muvaffaqiyatli yangilandi.');
           },
           error: (error) => {
+            this.showError('Xatolik: '+ error.error.detail);
             console.error('Error updating transaction:', error);
           },
         });
@@ -227,6 +231,13 @@ export class TransactionPageComponent implements OnInit, OnDestroy {
   onModalClose() {
     this.showTransactionModal = false;
     this.selectedTransaction = null;
+  }
+
+  showSuccess(message: string) {
+    this.MessageService.add({ severity: 'success', summary: 'Success', detail: message });
+  }
+  showError(message: string) {
+    this.MessageService.add({ severity: 'error', summary: 'Error', detail: message });
   }
 
 }

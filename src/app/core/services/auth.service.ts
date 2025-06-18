@@ -1,10 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiUrls } from '../../shared/apiUrl';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = 'http://localhost:5192/api';
+  private apiUrl: string;
+  constructor(api: ApiUrls) {
+    this.apiUrl = api.authUrl;
+  }
   http = inject(HttpClient);
   router = inject(Router);
 

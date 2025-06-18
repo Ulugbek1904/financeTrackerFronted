@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Account, CreateAccountDto } from '../../features/account/models';
+import { ApiUrls } from '../../shared/apiUrl';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
-  private apiUrl = 'http://localhost:5192/api/accounts';
-
-  constructor(private http: HttpClient) {}
+  private apiUrl: string;
+    constructor(api: ApiUrls, private http: HttpClient) {
+      this.apiUrl = api.accountUrl;
+    }
 
   getAccounts(): Observable<Account[]> {
     return this.http.get<Account[]>(`${this.apiUrl}`);

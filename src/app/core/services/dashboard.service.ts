@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiUrls } from '../../shared/apiUrl';
 
 export interface DashboardSummary {
   totalIncome: number;
@@ -42,11 +43,14 @@ export interface Category {
   providedIn: 'root'
 })
 export class DashboardService {
-  private baseUrl = 'http://localhost:5192/api';
+  private apiUrl: string;
+      constructor(api: ApiUrls,) {
+        this.apiUrl = api.dashboardUrl;
+      }
 
   http = inject(HttpClient)
 
   getSummary(): Observable<DashboardSummary> {
-    return this.http.get<DashboardSummary>(`${this.baseUrl}/dashboard/summary`);
+    return this.http.get<DashboardSummary>(`${this.apiUrl}/dashboard/summary`);
   }
 }

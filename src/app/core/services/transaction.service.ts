@@ -3,12 +3,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TransactionCreateDto, TransactionQueryDto } from '../../features/transactions/models';
 import { Observable } from 'rxjs';
+import { ApiUrls } from '../../shared/apiUrl';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionService {
-  private apiUrl = 'http://localhost:5192/api/transaction';
-
-  constructor(private http: HttpClient) {}
+  private apiUrl: string;
+    constructor(api: ApiUrls, private http: HttpClient) {
+      this.apiUrl = api.transactionUrl;
+    }
 
   addTransaction(dto: TransactionCreateDto): Observable<any> {
     return this.http.post(`${this.apiUrl}/add`, dto);
