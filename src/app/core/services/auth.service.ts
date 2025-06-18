@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   login(credentials: { email: string; password: string }) {
-    return this.http.post<any>('http://localhost:5192/api/auth/login', credentials);
+    return this.http.post<any>(`${this.apiUrl}/login`, credentials);
   }
 
   getUserRole():string {
@@ -62,7 +62,7 @@ export class AuthService {
   }
 
   logout() {
-    this.http.post(`${this.apiUrl}/auth/logout`, {}).subscribe({
+    this.http.post(`${this.apiUrl}/logout`, {}).subscribe({
     next: (res: any) => {
       console.log('Logout successful:', res);
 
