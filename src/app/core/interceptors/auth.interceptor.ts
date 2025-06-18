@@ -74,5 +74,5 @@ const refreshTokenRequest = (
     accessToken: string;
     refreshToken: string;
     expiryDate: string;
-  }>('http://localhost:5192/api/auth/refresh-token', { refreshToken });
+  }>('https://financetrackerbackend-1tp6.onrender.com/api/auth/refresh-token', { refreshToken });
 };
