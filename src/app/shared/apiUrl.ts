@@ -1,14 +1,15 @@
 import { Injectable } from "@angular/core";
 
 @Injectable({ providedIn: 'root' })
-export  class ApiUrls {
-    accountUrl: string = 'https://financetrackerbackend-1tp6.onrender.com/api/accounts';
-    categoryUrl: string = 'https://financetrackerbackend-1tp6.onrender.com/api/category';
-    transactionUrl: string = 'https://financetrackerbackend-1tp6.onrender.com/api/transaction';
-    userUrl: string = 'https://financetrackerbackend-1tp6.onrender.com/api';
-    authUrl: string = 'https://financetrackerbackend-1tp6.onrender.com/api';
-    profileUrl: string = 'https://financetrackerbackend-1tp6.onrender.com/api/profile';
-    budgetUrl: string = 'https://financetrackerbackend-1tp6.onrender.com/api/budget';
-    reportUrl: string = 'https://financetrackerbackend-1tp6.onrender.com/api/reports';
-    dashboardUrl: string = 'https://financetrackerbackend-1tp6.onrender.com/api';
+export class ApiUrls {
+    baseUrl: string = 'https://financetrackerbackend-1tp6.onrender.com/api';
+    accountUrl: string = `${this.baseUrl}/accounts`;
+    categoryUrl: string = `${this.baseUrl}/category`;
+    transactionUrl: string = `${this.baseUrl}/transaction`;
+    userUrl: string = `${this.baseUrl}`;
+    authUrl: string = `${this.baseUrl}`;
+    profileUrl: string = `${this.baseUrl}/profile`;
+    budgetUrl: string = `${this.baseUrl}/budget`;
+    reportUrl: string = `${this.baseUrl}/reports`;
+    dashboardUrl: string = `${this.baseUrl}`;
 }
