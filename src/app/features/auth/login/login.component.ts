@@ -25,6 +25,7 @@ import { ButtonModule } from 'primeng/button';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   router = inject(Router);
+  isLoading = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
@@ -37,6 +38,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     if (this.loginForm.invalid) return;
+    this.isLoading = true;
 
     this.authService.login(this.loginForm.value).subscribe({
       next: (res: any) => {
@@ -47,8 +49,10 @@ export class LoginComponent implements OnInit {
           res.expiryDate || new Date(Date.now() + 15 * 60 * 1000).toISOString()
         );
         this.router.navigateByUrl('dashboard');
+        this.isLoading = false;
       },
       error: (error) => {
+        this.isLoading = false;
         if (error.status === 401) {
           alert('Invalid email or password');
         } else if (error.status === 403) {

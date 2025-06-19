@@ -6,7 +6,6 @@ import { authGuard } from './core/guards/auth.guard';
 import { EntryRedirectComponent } from './core/entry-redirect/entry-redirect.component';
 import { roleGuard } from './core/guards/role.guard';
 import { UserLayoutComponent } from './layout/user-layout/user-layout.component';
-import { SuperAdminLayoutComponent } from './layout/super-admin-layout/super-admin-layout.component';
 
 export const routes: Routes = [
   { path: '', component: EntryRedirectComponent },
@@ -91,22 +90,6 @@ export const routes: Routes = [
             (b) => b.BudgetPageComponent
           ),
       }
-    ],
-  },
-  {
-    path: 'admin',
-    component: SuperAdminLayoutComponent,
-    canActivate: [roleGuard, authGuard],
-    data: { roles: ['SuperAdmin'] },
-    children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      {
-        path: 'dashboard',
-        loadComponent: () =>
-          import(
-            './features/dashboards/admin-dashboard/admin-dashboard.component'
-          ).then((m) => m.AdminDashboardComponent),
-      },
     ],
   },
   {

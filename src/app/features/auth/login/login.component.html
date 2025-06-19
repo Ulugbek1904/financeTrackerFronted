@@ -5,31 +5,24 @@
         <img src="/assets/images/logo2.png" alt="Logo" class="logo" />
       </a>
     </div>
-    <h2 class="text-2xl text-center my-6 font-medium">Shaxsiy kabinetga kiring</h2>
+    <h2 class="text-2xl text-center my-6 font-medium">
+      Shaxsiy kabinetga kiring
+    </h2>
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <input
-        type="email"
-        formControlName="email"
-        placeholder="Email"
-        class="mb-6"
-      />
+      <input type="email" formControlName="email" placeholder="Email" class="mb-6" />
       <input type="password" formControlName="password" placeholder="Parol" />
-      <a
-        routerLink="/forgot-password"
-        class="w-full block text-end text-sm mt-1 text-gray-400 transition-all hover:text-blue-500"
-      >
+      <a routerLink="/forgot-password"
+        class="w-full block text-end text-sm mt-1 text-gray-400 transition-all hover:text-blue-500">
         Parolni unutdingizmi?
       </a>
 
-      <p-button type="submit" label="Kirish" styleClass="w-full mt-4" />
+      <p-button type="submit" [label]="isLoading ? 'Yuklanmoqda...' : 'Kirish' " [disabled]="isLoading || loginForm.invalid" [loading]="isLoading" styleClass="w-full mt-4" />
 
       <div class="flex items-center justify-center mt-5 text-sm">
         <span class="text-gray-500 mr-1">Hali ro'yxatdan o'tmaganmisiz?</span>
-        <a
-          href="mailto:julugbek023@gmail.com"
-          class="text-blue-500 underline underline-offset-3 transition-all hover:text-blue-300 hover:no-underline"
-        >
+        <a href="mailto:julugbek023@gmail.com"
+          class="text-blue-500 underline underline-offset-3 transition-all hover:text-blue-300 hover:no-underline">
           Ro'yxatdan o'tish
         </a>
       </div>

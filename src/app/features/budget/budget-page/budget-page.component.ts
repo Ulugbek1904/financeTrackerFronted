@@ -164,8 +164,8 @@ export class BudgetPageComponent {
         this.selectedBudget = budget;
         this.loading = true;
         this.budgetService.getTransactionsByBudget(
-            budget.startDate instanceof Date ? budget.startDate : new Date(budget.startDate),
-            budget.endDate instanceof Date ? budget.endDate : new Date(budget.endDate),
+            budget.startDate instanceof Date ? new Date(budget.startDate) : new Date(budget.startDate),
+            budget.endDate instanceof Date ? new Date(budget.endDate) : new Date(budget.endDate),
             budget.categoryId
         ).subscribe({
             next: (transactions) => {
@@ -182,8 +182,8 @@ export class BudgetPageComponent {
                     }
                 });
             },
-            error: () => {
-                this.showError('Failed to load transactions');
+            error: (error) => {
+                this.showError('Failed to load transactions'+ error.detail);
                 this.loading = false;
             }
         });

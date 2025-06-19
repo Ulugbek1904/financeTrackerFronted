@@ -16,6 +16,10 @@ import { DialogModule } from 'primeng/dialog';
 export class SidebarComponent implements OnInit {
   profileImageUrl = '';
   items: MenuItem[] = [];
+
+  private token: string | null = localStorage.getItem('accessToken');
+  private payload = JSON.parse(atob(this.token?.split('.')[1] || ''));
+  userRole: string = this.payload.role;
   
   authService = inject(AuthService);
   router = inject(Router);
@@ -58,12 +62,31 @@ export class SidebarComponent implements OnInit {
         icon: 'pi pi-user', 
         routerLink: ['/profile'],
       }
+      
     ];
+
+    if (this.userRole === 'Admin') {
+      this.items.push({
+        label: 'user Control',
+        icon: 'pi pi-user-edit',
+        routerLink: ['/admin']
+      });
+    }
+    if(this.userRole === 'SuperAdmin') {
+      this.items.push({
+        label: 'Control Panel',
+        icon: 'pi pi-cog',
+        items: [
+          { label: 'Users', icon: 'pi pi-users', routerLink: ['/users'] },
+          { label: 'Roles', icon: 'pi pi-shield', routerLink: ['/roles'] }
+        ]
+      });
+    }
     
     this.userService.getMe().subscribe({
       next: user => {
         if (user.profilePictureUrl) {
-          this.profileImageUrl = user.profilePictureUrl.replace('http://', 'https://');
+          this.profileImageUrl = user.profilePictureUrl.replace('http', 'https');
         }
       },
       error: err => {
