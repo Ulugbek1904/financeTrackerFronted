@@ -10,9 +10,11 @@ import { ApiUrls } from '../../shared/apiUrl';
 })
 export class BudgetService {
   private apiUrl: string;
-    constructor(api: ApiUrls, private http: HttpClient) {
-      this.apiUrl = api.budgetUrl;
-    }
+  private transactionApiUrl : string 
+  constructor(api: ApiUrls, private http: HttpClient) {
+    this.apiUrl = api.budgetUrl;
+    this.transactionApiUrl = api.transactionUrl;
+  }
 
   getAllBudgets(): Observable<Budget[]> {
     return this.http.get<Budget[]>(`${this.apiUrl}/all`);
@@ -35,19 +37,26 @@ export class BudgetService {
   }
 
   getBudgetStats(budgetId: string): Observable<BudgetStats> {
-        return this.http.get<BudgetStats>(`${this.apiUrl}/stats/${budgetId}`);
+    return this.http.get<BudgetStats>(`${this.apiUrl}/stats/${budgetId}`);
+  }
+
+  getTransactionsByBudget(startDate: Date | string, endDate: Date | string, categoryId: number): Observable<TransactionDto[]> {
+    const start = startDate instanceof Date ? startDate : new Date(startDate);
+    const end = endDate instanceof Date ? endDate : new Date(endDate);
+
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+        throw new Error('Invalid date format provided');
     }
 
-  getTransactionsByBudget(startDate: Date, endDate: Date, categoryId: number): Observable<TransactionDto[]> {
     return this.http.get<TransactionDto[]>(
-      `http://localhost:5192/api/transaction/by-budget`,
-      {
-        params: {
-          startDate: startDate.toISOString(),
-          endDate: endDate.toISOString(),
-          categoryId: categoryId.toString()
+        `${this.transactionApiUrl}/by-budget`,
+        {
+            params: {
+                startDate: start.toISOString(),
+                endDate: end.toISOString(),
+                categoryId: categoryId.toString()
+            }
         }
-      }
     );
 }
 }
