@@ -86,7 +86,7 @@ export class SidebarComponent implements OnInit {
     this.userService.getMe().subscribe({
       next: user => {
         if (user.profilePictureUrl) {
-          this.profileImageUrl = user.profilePictureUrl.replace('http', 'https');
+          this.profileImageUrl = user.profilePictureUrl;
         }
       },
       error: err => {
